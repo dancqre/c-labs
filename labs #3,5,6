@@ -1,0 +1,198 @@
+using System;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        //3 лабораторна
+
+
+        /*static void Main(string[] args)
+        {
+            int a = Convert.ToInt32(Console.ReadLine());
+            int b = Convert.ToInt32(Console.ReadLine());
+            int c = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(((Math.Pow(b, 2) - 4 * a * c) >= 0) ? "Рiвняння має дiйснi коренi" : "Рiвняння не має дiйсних коренiв");
+        }*
+        //5 лабораторна
+
+
+        /*static void Main()
+        {
+            // Задаємо розміри матриці
+            int n = Convert.ToInt32(Console.ReadLine());
+            int m = Convert.ToInt32(Console.ReadLine());
+            int[,] arr = new int[n, m];
+            // Заповнюємо матрицю
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    arr[i , j] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+            int max = arr[0, 0];
+            int min = arr[0, 0];
+            int[] min_max_location = new int[2];
+            // Шукаємо мінімальне і максимальне значення та номери їх рядків
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if(arr[i,j] > max)
+                    {
+                        max = arr[i, j];
+                        min_max_location[0] = i;
+                    }
+                    if (arr[i, j] < min)
+                    {
+                        min = arr[i, j];
+                        min_max_location[1] = i;
+                    }
+                }
+            }
+            // Міняємо місцями рядок з максимальним і мінімальним числом
+            int temp;
+            for (int i = 0; i < m; i++)
+            {
+                temp = arr[min_max_location[0], i];
+                arr[min_max_location[0], i] = arr[min_max_location[1], i];
+                arr[min_max_location[1], i] = temp;
+            }
+
+            // Виводимо фінальний масив
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    Console.Write(arr[i, j] + "  ");
+                }
+                Console.WriteLine();
+            }
+        }*/
+
+        //6 лабораторна
+
+
+        static void Reverse(int num)
+        {
+            bool flag = false;
+            if (num < 0)
+            {
+                flag = true;
+                num *= -1;
+            }
+            Console.Write(flag == true ? "-" : "");
+            solution(ref num);
+            Console.WriteLine();
+        }
+
+        static void Reverse(string text)
+        {
+            int count = text.Length;
+            solution(text, ref count);
+            Console.WriteLine();
+        }
+        static void Reverse(decimal num)
+        {
+            bool flag = false;
+            if (num < 0)
+            {
+                flag = true;
+                num *= -1;
+            }
+            int num_cel = (int)num;
+            num = num - (int)num;
+            while (num - (int)num > 0)
+            {
+                num *= 10;
+            }
+            int n = Convert.ToInt32(num);
+            Console.Write(flag == true ? "-" : "");
+            solution(ref num_cel);
+            Console.Write(".");
+            solution(ref n);
+            Console.WriteLine();
+        }
+
+        static void Reverse(ref string list)
+        {
+            solution(ref list);
+
+            for (int i = list.Length - 1; i >= 0; i--)
+            {
+                Console.Write(list[i]);
+            }
+        }
+
+        static void Reverse(ref int[] arr)
+        {
+            Console.WriteLine("Заповнiть масив елементами");
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = Convert.ToInt32(Console.ReadLine());
+
+            }
+            solution(arr);
+        }
+
+        static void solution(ref int num)
+        {
+            if (num > 0)
+            {
+                Console.Write(num % 10);
+                num /= 10;
+                solution(ref num);
+            }
+        }
+        static void solution(string text, ref int count)
+        {
+            if (count > 0)
+            {
+                Console.Write(text[count - 1]);
+                count--;
+                solution(text, ref count);
+            }
+        }
+
+        static void solution(ref string list)
+        {
+            if (list.IndexOf(",") > 0)
+            {
+                int index = list.IndexOf(",");
+                string temp = list.Substring(0, index);
+                for (int i = temp.Length - 1; i >= 0; i--)
+                {
+                    Console.Write(temp[i]);
+                }
+                list = list.Remove(0, index + 1);
+                Console.Write(",");
+                solution(ref list);
+            }
+        }
+
+        static void solution(int[] arr)
+        {
+            for (int i = arr.Length - 1; i >= 0; i--)
+            {
+                Console.Write($"{arr[i]} ");
+            }
+        }
+        static void Main()
+        {
+            Console.WriteLine("Введiть значення типу int, яке потрiбно перевернути");
+            Reverse(Convert.ToInt32(Console.ReadLine()));
+            Console.WriteLine("Введiть значення типу string, яке потрiбно перевернути");
+            Reverse(Console.ReadLine());
+            Console.WriteLine("Введiть значення типу double, яке потрiбно перевернути");
+            Reverse(Convert.ToDecimal(Console.ReadLine()));
+            Console.WriteLine("Введiть текст, який потрiбно роздiлити по комi та вивести перевернутим");
+            string list = Console.ReadLine();
+            Reverse(ref list);
+            Console.WriteLine("\n Введiть довжину масиву, який потрiбно перевернути");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] arr = new int[n];
+            Reverse(ref arr);
+        }
+    }
+}
